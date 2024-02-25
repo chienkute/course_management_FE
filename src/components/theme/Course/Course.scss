@@ -1,0 +1,131 @@
+@use "sass:map";
+@import "style/pages/theme";
+.course {
+  width: 416px;
+  margin-right: 24px;
+  border-radius: 8px;
+  box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.05);
+  overflow: hidden;
+  &__thumbnail {
+    background-color: #f1f1f1;
+    overflow: hidden;
+    aspect-ratio: 1 / 0.6;
+    position: relative !important;
+    img {
+      width: 100%;
+      height: 100%;
+    }
+  }
+  &__logo {
+    background-color: #fff;
+    border-radius: 50%;
+    position: relative;
+    left: 20px;
+    margin-top: -25px;
+    margin-bottom: 8px;
+    height: 50px;
+    width: 50px;
+    z-index: 1;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    img {
+      border-radius: 50%;
+      width: 42px;
+      height: 42px;
+    }
+  }
+  &__header {
+    display: flex;
+    gap: 8px;
+    padding: 0 20px 14px 20px;
+    align-items: center;
+    a {
+      font-weight: 600;
+      color: $black;
+    }
+  }
+  &__content {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    font-size: 14px;
+    padding: 0 20px 14px 20px;
+  }
+  &__line {
+    margin-bottom: 6px;
+    display: flex;
+    align-items: center;
+    span {
+      display: inline-block;
+      width: 120px;
+      font-size: 14px;
+      color: $black;
+    }
+    strong {
+      font-weight: 500;
+      display: inline-block;
+      width: calc(100% - 120px);
+      font-size: 14px;
+    }
+  }
+  &__bottom {
+    padding: 14px 20px;
+  }
+  &__price {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 10px;
+    align-items: center;
+    color: #ee0000;
+    font-size: 20px;
+    font-weight: 700;
+  }
+  &__action {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  &__whishlist {
+    display: flex;
+    align-items: center;
+    a {
+      background-color: #eef2f6;
+      width: 40px;
+      height: 40px;
+      margin-right: 0.5rem;
+      transition: 0.3s;
+      display: flex;
+      color: $black;
+      border-radius: 50%;
+      svg {
+        display: inline-block;
+        width: 36px;
+        height: 36px;
+        transform: translate(2px, 2px);
+      }
+    }
+  }
+  &__slot {
+    position: relative;
+    img {
+      width: 83px;
+    }
+    span {
+      color: #fff;
+      display: inline-block;
+      font-size: 13px;
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      left: 18px;
+    }
+  }
+  &__subscribe {
+    a {
+      color: #038c4b;
+      display: inline-block;
+      font-size: 14px;
+      font-weight: 500;
+      text-decoration: underline;
+    }
+  }
+}

@@ -1,0 +1,37 @@
+@use "sass:map";
+@import "theme";
+a {
+  background-color: transparent;
+  text-decoration: none;
+}
+
+img {
+  border-style: none;
+}
+
+textarea {
+  overflow: auto;
+}
+
+html,
+body {
+  background-color: $mainpage;
+  margin: 0;
+  box-sizing: border-box;
+  padding: 0;
+}
+* {
+  font-family: "Roboto", sans-serif;
+  line-height: 24px;
+}
+
+.bold {
+  font-weight: 700;
+}
+
+.italic {
+  font-style: italic;
+}
+.text-green {
+  color: #038c4b;
+}

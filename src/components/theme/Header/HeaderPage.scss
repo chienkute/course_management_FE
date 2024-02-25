@@ -1,0 +1,56 @@
+@use "sass:map";
+@import "style/pages/theme";
+.ant-layout-header {
+  background-color: white !important;
+}
+.header {
+  position: sticky;
+  top: 0;
+  height: 70px;
+  height: fit-content;
+  width: 100%;
+  position: fixed;
+  z-index: 2;
+  box-shadow: $box-shadow;
+  &_cart {
+    &_icon {
+      svg {
+        width: 20px;
+        height: 20px;
+        // transform: translateY(2px);
+      }
+    }
+  }
+  &_button {
+    font-weight: bold;
+    font-size: 17px;
+  }
+  &_logo {
+    transform: translateX(50px);
+    img {
+      width: 162px;
+      height: 55px;
+    }
+  }
+  &_layout {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 50px 80px;
+  }
+  &_menu {
+    max-width: 30%;
+    li {
+      text-align: left;
+      font-size: 18px;
+    }
+  }
+  &_item {
+    width: 71%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    column-gap: 30px;
+  }
+}
