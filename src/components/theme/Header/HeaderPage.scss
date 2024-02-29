@@ -17,7 +17,6 @@
       svg {
         width: 20px;
         height: 20px;
-        // transform: translateY(2px);
       }
     }
   }
@@ -41,10 +40,9 @@
   }
   &_menu {
     max-width: 30%;
-    li {
-      text-align: left;
-      font-size: 18px;
-    }
+    display: flex;
+    flex-direction: row;
+    gap: 40px;
   }
   &_item {
     width: 71%;
@@ -53,4 +51,9 @@
     justify-content: flex-end;
     column-gap: 30px;
   }
+}
+.menu-text {
+  color: $text;
+  text-align: left;
+  font-size: 18px;
 }

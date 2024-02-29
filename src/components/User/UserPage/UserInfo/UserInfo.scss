@@ -1,0 +1,10 @@
+@use "sass:map";
+@import "style/pages/theme";
+.user {
+  &__container {
+    display: flex;
+    padding: 50px 50px;
+    column-gap: 150px;
+    background-color: $mainpage;
+  }
+}

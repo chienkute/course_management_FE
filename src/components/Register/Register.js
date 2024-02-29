@@ -2,10 +2,25 @@ import { memo } from "react";
 import "./Register.scss";
 import React from "react";
 import { Button, Form, Input } from "antd";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { register } from "service/UserService";
+import { toast } from "react-toastify";
 const Register = () => {
-  const onFinish = (values) => {
-    console.log("Success:", values);
+  const navigate = useNavigate();
+  const onFinish = async (values) => {
+    let res = await register(
+      values.username,
+      values.firstname,
+      values.lastname,
+      values.email,
+      values.password
+    );
+    if (res.sucess === true) {
+      toast.success("Đăng kí thành công");
+      navigate("/login");
+    } else {
+      toast.error("Đăng kí thất bại");
+    }
   };
   const onFinishFailed = (errorInfo) => {
     console.log("Failed:", errorInfo);

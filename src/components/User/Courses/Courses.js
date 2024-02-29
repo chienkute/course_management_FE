@@ -1,10 +1,39 @@
-import { memo, React } from "react";
+import { memo, React, useEffect, useState } from "react";
 import "./Courses.scss";
 import { CiSearch } from "react-icons/ci";
 import { Link } from "react-router-dom";
-import icon from "../../../assets/iconcategory1.png";
 import Course from "components/theme/Course/Course";
+import { getCategories, searchCourse } from "service/UserService";
+import { useDebounce } from "@uidotdev/usehooks";
+import { useSelector } from "react-redux";
+
 const Courses = () => {
+  const state = useSelector((state) => state.changeTheme.search);
+  const [query, setQuery] = useState(state || "");
+  const debouncedSearchTerm = useDebounce(query, 500);
+  const [categories, setCategories] = useState("");
+  const [categoryName, setCategoryName] = useState("");
+  const [course, setCourse] = useState([]);
+  console.log(course);
+  const getCategoryCourse = async () => {
+    let res = await getCategories();
+    if (res) {
+      setCategories(res?.data);
+    }
+  };
+  const getCourse = async () => {
+    let res = await searchCourse(debouncedSearchTerm, categoryName);
+    if (res) {
+      setCourse(res?.data);
+    }
+  };
+  useEffect(() => {
+    getCategoryCourse();
+    getCourse();
+  }, []);
+  useEffect(() => {
+    getCourse();
+  }, [debouncedSearchTerm, categoryName]);
   return (
     <div className="courses">
       <div className="courses__container">
@@ -20,42 +49,47 @@ const Courses = () => {
               name="s"
               placeholder="Tìm khóa học"
               autoComplete="off"
+              onChange={(e) => {
+                setQuery(e.target.value);
+              }}
             />
             <Link>
               <CiSearch></CiSearch>
             </Link>
           </form>
           <div className="courses__category">
-            <Link>
-              <div className="courses__icon">
-                <img src={icon} alt="" />
-              </div>
-              <div className="courses__text2">Khóa học nền tảng</div>
-            </Link>
-            <Link>
-              <div className="courses__icon">
-                <img src={icon} alt="" />
-              </div>
-              <div className="courses__text2">Khóa học nền tảng</div>
-            </Link>
-            <Link>
-              <div className="courses__icon">
-                <img src={icon} alt="" />
-              </div>
-              <div className="courses__text2">Khóa học nền tảng</div>
-            </Link>
-            <Link>
-              <div className="courses__icon">
-                <img src={icon} alt="" />
-              </div>
-              <div className="courses__text2">Khóa học nền tảng</div>
-            </Link>
+            {categories &&
+              categories.length > 0 &&
+              categories.map((item, index) => {
+                return (
+                  <Link
+                    onClick={() => {
+                      setCategoryName(item?.title);
+                    }}
+                  >
+                    <div className="courses__icon">
+                      <img src={item?.image} alt="" />
+                    </div>
+                    <div className="courses__text2">{item?.title}</div>
+                  </Link>
+                );
+              })}
           </div>
         </div>
         <div className="courses__list">
-          <Course></Course>
-          <Course></Course>
-          <Course></Course>
+          {course &&
+            course.length > 0 &&
+            course.map((item, index) => {
+              return (
+                <Course
+                  id={item?._id}
+                  title={item?.title}
+                  image={item?.image}
+                  duration={item?.duration}
+                  price={item?.price}
+                ></Course>
+              );
+            })}
         </div>
       </div>
     </div>

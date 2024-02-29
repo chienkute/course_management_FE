@@ -2,10 +2,21 @@ import { memo } from "react";
 import "./Login.scss";
 import React from "react";
 import { Button, Form, Input, Checkbox } from "antd";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { login } from "service/UserService";
+import { toast } from "react-toastify";
 const Login = () => {
-  const onFinish = (values) => {
-    console.log("Success:", values);
+  const navigate = useNavigate();
+  const onFinish = async (values) => {
+    let res = await login(values.username, values.password);
+    if (res?.sucess === true) {
+      localStorage.setItem("token", res?.accessToken);
+      localStorage.setItem("user", JSON.stringify(res?.user));
+      toast.success("Đăng nhập thành công");
+      navigate("/");
+    } else {
+      toast.error("Đăng nhập thất bại");
+    }
   };
   const onFinishFailed = (errorInfo) => {
     console.log("Failed:", errorInfo);
@@ -81,7 +92,7 @@ const Login = () => {
               htmlType="submit"
               className="login_container_button"
             >
-              Đăng kí
+              Đăng nhập
             </Button>
           </Form.Item>
           <Form.Item

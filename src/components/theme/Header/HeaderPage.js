@@ -1,38 +1,24 @@
-import { memo, useEffect, useState } from "react";
+import { memo } from "react";
 import "./HeaderPage.scss";
 import React from "react";
-import { Button, Layout, Menu } from "antd";
+import { Button, Layout } from "antd";
 import logo from "../../../assets/logo.png";
 import { FaCartShopping } from "react-icons/fa6";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import { Avatar, Badge, Space } from "antd";
+import { useDispatch, useSelector } from "react-redux";
+import { updateSearch } from "redux/userSlice";
 const { Header } = Layout;
 const HeaderPage = () => {
-  const items1 = ["Trang chủ", "Khóa học", "Blog"].map((key, index) => ({
-    key: index.toString(),
-    label: `${key}`,
-    path: index === 0 ? "/" : index === 1 ? "/course" : "/blog",
-  }));
-  const location = useLocation();
+  const state = useSelector((state) => state.changeTheme.count);
   const navigate = useNavigate();
-  const [selectedKeys, setSelectedKeys] = useState(() => {
-    const storedSelectedKey = localStorage.getItem("selectedMenuItem");
-    return storedSelectedKey ? [storedSelectedKey] : ["0"];
-  });
-  useEffect(() => {
-    const path = location.pathname;
-    const selectedItem = items1.find((item) => item.path === path);
-    if (selectedItem) {
-      setSelectedKeys([selectedItem.key]);
-      localStorage.setItem("selectedMenuItem", selectedItem.key);
-    }
-  }, [location]);
-  useEffect(() => {
-    const storedSelectedKey = localStorage.getItem("selectedMenuItem");
-    if (storedSelectedKey && storedSelectedKey !== selectedKeys[0]) {
-      setSelectedKeys([storedSelectedKey]);
-    }
-  }, []);
+  const dispatch = useDispatch();
+  const resetSearch = () => {
+    const updatedSearch = {
+      search: "",
+    };
+    dispatch(updateSearch(updatedSearch));
+  };
   return (
     <div className="header">
       <Layout>
@@ -41,35 +27,64 @@ const HeaderPage = () => {
             <img src={logo} alt="" className="header_logo_image_icon" />
           </Link>
           <div className="header_item">
-            <Menu
-              mode="horizontal"
-              defaultSelectedKeys={selectedKeys}
-              style={{
-                flex: 1,
-                minWidth: 0,
-              }}
-              className="header_menu"
-            >
-              {items1.map((item) => (
-                <Menu.Item key={item.key}>
-                  <Link to={item.path}>{item.label}</Link>
-                </Menu.Item>
-              ))}
-            </Menu>
-            <Button
-              type="primary"
-              htmlType="submit"
-              className="header_button"
-              size="large"
-              onClick={() => {
-                navigate("/login");
-              }}
-            >
-              Đăng nhập
-            </Button>
-            <Link className="header_cart">
+            <div className="header_menu">
+              <NavLink
+                to={"/"}
+                className={({ isActive }) =>
+                  isActive ? "sideBarActive menu-text" : "menu-text"
+                }
+              >
+                Trang chủ
+              </NavLink>
+              <NavLink
+                to={"/course"}
+                className={({ isActive }) =>
+                  isActive ? "sideBarActive menu-text" : "menu-text"
+                }
+                onClick={() => {
+                  resetSearch();
+                }}
+              >
+                Khóa học
+              </NavLink>
+              <NavLink
+                to={"/blog"}
+                className={({ isActive }) =>
+                  isActive ? "sideBarActive menu-text" : "menu-text"
+                }
+              >
+                Blog
+              </NavLink>
+            </div>
+            {localStorage.getItem("user") ? (
+              <Button
+                type="primary"
+                htmlType="submit"
+                className="header_button"
+                size="large"
+                onClick={() => {
+                  navigate("/user/information/");
+                }}
+              >
+                Tài khoản
+              </Button>
+            ) : (
+              <Button
+                type="primary"
+                htmlType="submit"
+                className="header_button"
+                size="large"
+                onClick={() => {
+                  navigate("/login");
+                }}
+              >
+                Đăng nhập
+              </Button>
+            )}
+
+            <Link className="header_cart" to={"/cart"}>
               <Space size="middle">
-                <Badge count={5}>
+                <Badge count={state} showZero>
                   <Avatar
                     shape="square"
                     size="large"

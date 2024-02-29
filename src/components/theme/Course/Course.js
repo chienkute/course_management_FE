@@ -2,16 +2,23 @@ import { memo } from "react";
 import "./Course.scss";
 import React from "react";
 import { Link } from "react-router-dom";
-import thumbnail from "../../../assets/thumbnail1.jpg";
 import logo from "../../../assets/logo2.png";
 import { CiHeart } from "react-icons/ci";
 import tag from "../../../assets/tag.svg";
-const Course = () => {
+const Course = (props) => {
+  const { id, title, image, duration, price } = props;
+  const formated = (price) => {
+    price = new Intl.NumberFormat("vi-VN", {
+      style: "currency",
+      currency: "VND",
+    }).format(price);
+    return price;
+  };
   return (
     <div className="course">
       <div className="course__thumbnail">
-        <Link>
-          <img src={thumbnail} alt="" />
+        <Link to={`/detail/${id}`}>
+          <img src={image} alt="" />
         </Link>
       </div>
       <div className="course__detail">
@@ -19,12 +26,12 @@ const Course = () => {
           <img src={logo} alt="" />
         </div>
         <div className="course__header">
-          <Link>Khóa học WordPress Cơ bản danh cho người mới bắt đầu</Link>
+          <Link to={`/detail/${id}`}>{title}</Link>
         </div>
         <div className="course__content">
           <div className="course__line">
             <span>Thời lượng:</span>
-            <strong> 2 giờ - 3 phút </strong>
+            <strong> {duration}</strong>
           </div>
           <div className="course__line">
             <span>Hình thức học:</span>
@@ -32,7 +39,9 @@ const Course = () => {
           </div>
         </div>
         <div className="course__bottom">
-          <div className="course__price">Miễn phí</div>
+          <div className="course__price">
+            {formated(price) === 0 ? "Miễn phí" : formated(price)}
+          </div>
           <div className="course__action">
             <div className="course__whishlist">
               <Link>
@@ -44,7 +53,7 @@ const Course = () => {
               </div>
             </div>
             <div className="course__subscribe">
-              <Link>Đăng ký ngay</Link>
+              <Link to={`/detail/${id}`}>Đăng ký ngay</Link>
             </div>
           </div>
         </div>

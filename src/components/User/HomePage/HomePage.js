@@ -1,4 +1,4 @@
-import { memo } from "react";
+import { memo, useEffect, useState } from "react";
 import "./HomePage.scss";
 import "../../../components/User/HomePage/styles.css";
 import React from "react";
@@ -6,9 +6,32 @@ import banner from "../../../assets/banner-inside.png";
 import achievement from "../../../assets/achievement-img.png";
 import icon from "../../../assets/ic-achievement.svg";
 import feedback from "../../../assets/cam-nhan-hoc-vien.png";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Course from "../../theme/Course/Course";
+import { getAllCourse } from "service/UserService";
+import { useDispatch } from "react-redux";
+import { updateSearch } from "redux/userSlice";
 const HomePage = () => {
+  const [course, setCourse] = useState("");
+  const [value, setValue] = useState("");
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const searchCourse = () => {
+    const updatedSearch = {
+      search: `${value}`,
+    };
+    navigate("/course");
+    dispatch(updateSearch(updatedSearch));
+  };
+  const getCourses = async () => {
+    let res = await getAllCourse();
+    if (res) {
+      setCourse(res?.data);
+    }
+  };
+  useEffect(() => {
+    getCourses();
+  }, []);
   return (
     <div className="home">
       <div className="home__banner">
@@ -25,14 +48,23 @@ const HomePage = () => {
                     học lập trình WordPress với các dự án thực tế của công ty
                   </p>
                   <div className="home__banner_search">
-                    <form action="">
+                    <form>
                       <div className="home__banner_input">
                         <input
                           type="text"
                           placeholder="Tìm kiếm khóa học"
                           autoCapitalize="off"
+                          onChange={(e) => {
+                            setValue(e.target.value);
+                          }}
                         />
-                        <button>Tìm kiếm</button>
+                        <button
+                          onClick={() => {
+                            searchCourse();
+                          }}
+                        >
+                          Tìm kiếm
+                        </button>
                       </div>
                     </form>
                   </div>
@@ -107,12 +139,22 @@ const HomePage = () => {
         <div className="home__course">
           <div className="home__course_text">
             <h2>Đang khuyến mãi</h2>
-            <Link>Xem tất cả</Link>
+            <Link to={"/course"}>Xem tất cả</Link>
           </div>
           <div className="home__course_content">
-            <Course></Course>
-            <Course></Course>
-            <Course></Course>
+            {course &&
+              course.length > 0 &&
+              course.map((item, index) => {
+                return (
+                  <Course
+                    id={item?._id}
+                    title={item?.title}
+                    image={item?.image}
+                    duration={item?.duration}
+                    price={item?.price}
+                  ></Course>
+                );
+              })}
           </div>
         </div>
       </div>

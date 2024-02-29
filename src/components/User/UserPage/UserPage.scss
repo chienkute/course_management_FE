@@ -1,0 +1,252 @@
+@use "sass:map";
+@import "style/pages/theme";
+.UserPageContent {
+  display: flex;
+  gap: 32px;
+  width: 80%;
+  margin-left: 170px;
+  margin-top: 150px;
+  margin-bottom: 200px;
+  margin-right: 20px;
+  background-color: $mainpage;
+}
+
+.UserPageMenu {
+  width: 27%;
+  border: 1px solid transparent;
+  padding: 28px;
+  height: fit-content;
+  box-shadow: rgba(0, 0, 0, 0.06) 0px 16px 24px 0px,
+    rgba(0, 0, 0, 0.04) 0px 2px 8px 0px, rgba(0, 0, 0, 0.04) 0px 0px 1px;
+  background-color: #fff;
+}
+
+.UserPageMenu div.ListOption {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 32px;
+}
+
+.UserPageMenu a.Option {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  color: $color-black;
+}
+
+.UserPageMenu li.Option.selected {
+  color: rgb(45, 135, 243);
+}
+
+.OptionIcon > svg {
+  margin-right: 16px;
+  width: 24px;
+  height: 24px;
+}
+
+.UserInfo {
+  margin-left: auto;
+  width: 75%;
+}
+
+.UserInfoHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.UserInfoHeader > .UserInfoEdit {
+  color: rgb(45, 135, 243);
+  cursor: pointer;
+}
+
+.UserBasicInfo {
+  display: flex;
+  margin-bottom: 30px;
+  margin-left: -14px;
+}
+
+.UserAvatar {
+  width: 20%;
+  margin-right: 24px;
+  position: relative;
+}
+
+.upload__image {
+  position: absolute;
+  top: 280px;
+  right: 890px;
+  background-color: white;
+  border-radius: 50%;
+  height: 30px;
+  width: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  svg {
+    font-size: 20px;
+  }
+}
+
+.avatarAfter {
+  width: 130px;
+  height: 130px;
+  border-radius: 50%;
+  transform: translateX(15px);
+  margin-top: 6px;
+}
+.avatarBefore {
+  width: 130px;
+  height: 130px;
+  border-radius: 50%;
+  transform: translateX(15px);
+}
+.UserAccount {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.UserAccount > p {
+  width: 100%;
+  display: flex;
+  margin: 0;
+}
+
+.UserAccount > p:first-child {
+  align-items: flex-end;
+}
+
+.UserAccount > p:last-child {
+  color: rgb(45, 135, 243);
+}
+
+.UserPersonalInfo {
+  padding: 16px;
+  box-shadow: rgba(0, 0, 0, 0.04) 0px 10px 16px, rgba(0, 0, 0, 0.04) 0px 2px 8px,
+    rgba(0, 0, 0, 0.04) 0px 0px 1px;
+  border-radius: 6px;
+  height: fit-content;
+  background-color: #fff;
+}
+.user {
+  padding-left: 6px;
+  height: fit-content;
+  display: flex;
+  flex-direction: column;
+  row-gap: 10px;
+  &__info {
+    display: flex;
+    flex-direction: column;
+    row-gap: 3px;
+    label {
+      width: 100%;
+      font-size: 12px;
+      margin-bottom: 4px;
+      color: rgb(89, 89, 89);
+      font-weight: 700;
+    }
+    &_input {
+      width: 100%;
+      height: 50px;
+      border-radius: 6px;
+      border: 1px solid $border;
+      padding: 16px;
+      input {
+        width: 100%;
+        height: 100%;
+        border: none;
+        outline-color: transparent;
+      }
+    }
+  }
+  &__button {
+    margin-top: 10px;
+    display: flex;
+    column-gap: 10px;
+    a {
+      width: 82px;
+      height: 48px;
+      align-items: center;
+      color: $color-blue;
+      border-radius: 6px;
+      border: 2px solid $color-blue;
+      justify-content: center;
+      padding-left: 24px;
+      padding-top: 12px;
+      font-weight: 700;
+      &:hover {
+        background-color: $color-blue;
+        color: white;
+      }
+    }
+    button {
+      width: 82px;
+      height: 48px;
+      align-items: center;
+      background-color: $color-blue;
+      color: white;
+      border-radius: 6px;
+      font-weight: 700;
+      padding-left: 4px;
+      padding-top: 2px;
+      span {
+        transform: translate(5px, 2px);
+      }
+    }
+  }
+}
+.form-select {
+  height: 50px !important;
+}
+.ListPersonalInfos {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 0;
+}
+
+.PersonalInfo {
+  width: 100%;
+  border-top: 1px solid rgb(228, 232, 236);
+  padding-top: 16px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.ListPersonalInfos > .PersonalInfo:first-child {
+  border-top: none !important;
+  padding-top: 0 !important;
+}
+
+.PersonalInfo > .PersonalInfoHeader {
+  width: 100%;
+  font-size: 12px;
+  margin-bottom: 4px;
+  color: rgb(89, 89, 89);
+}
+
+.PersonalInfo > .PersonalInfoData {
+  width: 100%;
+  font-size: 16px;
+  margin-bottom: 0;
+}
+.sideBarActive {
+  .OptionName {
+    color: $color-blue;
+    font-weight: 700;
+  }
+  .OptionIcon {
+    svg {
+      color: $color-blue;
+    }
+  }
+}
+.lds-user {
+  transform: translateX(400px);
+}
+.UserPageContainer {
+  background-color: $mainpage;
+}

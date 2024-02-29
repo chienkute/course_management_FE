@@ -1,6 +1,11 @@
 @use "sass:map";
 @import "style/pages/theme";
 .detail {
+  margin-top: 130px;
+  &_content {
+    font-size: 14px;
+    margin-bottom: 16px;
+  }
   &__container {
     max-width: 1320px;
     width: 100%;
@@ -25,8 +30,61 @@
         font-size: 24px;
         margin-bottom: 10px;
         text-transform: uppercase;
+        line-height: 1.6;
+        margin-bottom: 20px;
       }
     }
-    // &_rating
+    &_rating {
+      display: flex;
+      align-items: center;
+      font-size: 16px;
+      margin-bottom: 20px;
+      &_average {
+        font-weight: 500;
+        margin-left: 12px;
+      }
+      &_count {
+        margin-left: 8px;
+        color: #757c8e;
+      }
+    }
+    &_price {
+      font-weight: 700;
+      font-size: 35px;
+      color: #e00;
+      margin-top: 50px;
+    }
+    &_body {
+      button {
+        margin-top: 70px;
+        background-color: #fff;
+        border-color: $black;
+        color: $black;
+        font-size: 16px;
+        font-weight: 600;
+        line-height: 1;
+        padding: 16px 24px;
+        text-transform: uppercase;
+        display: flex;
+        justify-content: center;
+        width: 100%;
+        text-align: center;
+        &:hover {
+          background-color: orange;
+          color: #fff;
+        }
+        div {
+          svg {
+            width: 24px;
+            height: 24px;
+            margin-right: 8px;
+          }
+        }
+        span {
+          font-size: 16px;
+          font-weight: 600;
+        }
+      }
+    }
   }
 }

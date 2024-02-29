@@ -1,10 +1,85 @@
-import { memo, React } from "react";
+import { memo, React, useEffect, useState } from "react";
 import "./CourseDetail.scss";
-import thumbnail from "../../../assets/thumbnail1.jpg";
 import ReactStars from "react-stars";
-import { Link } from "react-router-dom";
-import { TbShoppingCartPlus } from "react-icons/tb";
+import { Link, useNavigate, useParams } from "react-router-dom";
+import { TbShoppingCartPlus, TbShoppingCart } from "react-icons/tb";
+import Tabs from "@mui/material/Tabs";
+import Tab from "@mui/material/Tab";
+import Typography from "@mui/material/Typography";
+import Box from "@mui/material/Box";
+import PropTypes from "prop-types";
+import { getCourseById, updateCart } from "service/UserService";
+import { updateCount } from "redux/userSlice";
+import { useDispatch } from "react-redux";
+function CustomTabPanel(props) {
+  const { children, value, index, ...other } = props;
+  return (
+    <div
+      role="tabpanel"
+      hidden={value !== index}
+      id={`simple-tabpanel-${index}`}
+      aria-labelledby={`simple-tab-${index}`}
+      {...other}
+    >
+      {value === index && (
+        <Box sx={{ p: 3 }}>
+          <Typography>{children}</Typography>
+        </Box>
+      )}
+    </div>
+  );
+}
+CustomTabPanel.propTypes = {
+  children: PropTypes.node,
+  index: PropTypes.number.isRequired,
+  value: PropTypes.number.isRequired,
+};
+function a11yProps(index) {
+  return {
+    id: `simple-tab-${index}`,
+    "aria-controls": `simple-tabpanel-${index}`,
+  };
+}
+
 const CourseDetail = () => {
+  const dispatch = useDispatch();
+  const addCount = () => {
+    const updatedCount = {
+      count: 1,
+    };
+    dispatch(updateCount(updatedCount));
+  };
+  const [value, setValue] = useState(0);
+  const handleChange = (event, newValue) => {
+    setValue(newValue);
+  };
+  const navigate = useNavigate();
+  const { id } = useParams();
+  const [course, setCourse] = useState("");
+  console.log(course);
+  const getCourseInfo = async () => {
+    let res = await getCourseById(id);
+    if (res) {
+      setCourse(res?.data);
+    }
+  };
+  const addtoCart = async () => {
+    let res = await updateCart(course?._id, 1);
+    if (res) {
+      console.log(res);
+      navigate("/cart");
+    }
+  };
+  const formated = (price) => {
+    price = new Intl.NumberFormat("vi-VN", {
+      style: "currency",
+      currency: "VND",
+    }).format(price);
+    return price;
+  };
+  useEffect(() => {
+    getCourseInfo();
+  }, []);
   return (
     <div className="detail">
       <div className="detail__container">
@@ -12,14 +87,14 @@ const CourseDetail = () => {
           <div className="row g-4">
             <div className="col-lg-6 detail__card_left">
               <div className="detail__card_thumbnail">
-                <img src={thumbnail} alt="" />
+                <img src={course?.image} alt="" />
               </div>
             </div>
             <div className="col-lg-6 detail__card_right">
               <div className="detail__card_product">
                 <header className="detail__card_header">
                   <h1>
-                    <span>Khoá học tìm hiểu custom database WordPress</span>
+                    <span>{course?.title}</span>
                   </h1>
                   <div className="detail__card_top">
                     <div className="detail__card_rating">
@@ -39,10 +114,10 @@ const CourseDetail = () => {
                   </div>
                 </header>
                 <hr />
-                <div className="course__content">
+                <div className="detail_content">
                   <div className="course__line">
                     <span>Thời lượng:</span>
-                    <strong> 2 giờ - 3 phút </strong>
+                    <strong> {course?.duration} </strong>
                   </div>
                   <div className="course__line">
                     <span>Hình thức học:</span>
@@ -55,24 +130,51 @@ const CourseDetail = () => {
                     </strong>
                   </div>
                 </div>
+                <hr />
                 <div className="detail__card_body">
                   <div className="detail__card_price">
-                    <div>
-                      <span>
-                        1.500.000
-                        <span>₫</span>
-                      </span>
-                    </div>
+                    <span>{formated(course?.price)}&nbsp;</span>
                   </div>
-                  <button>
+                  <button
+                    onClick={() => {
+                      addtoCart();
+                      addCount();
+                    }}
+                  >
                     <div>
                       <TbShoppingCartPlus></TbShoppingCartPlus>
                     </div>
                     <span>Thêm vào giỏ hàng</span>
+                    {/* <div>
+                      <TbShoppingCart></TbShoppingCart>
+                    </div>
+                    <span>Xem giỏ hàng</span> */}
                   </button>
                 </div>
               </div>
             </div>
+          </div>
+        </div>
+        <div className="detail__card">
+          <div className="detail__card_tab">
+            <Box sx={{ width: "100%" }}>
+              <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
+                <Tabs
+                  value={value}
+                  onChange={handleChange}
+                  aria-label="basic tabs example"
+                >
+                  <Tab label="Chi tiết khóa học" {...a11yProps(0)} />
+                  <Tab label="Cảm nhận học viên" {...a11yProps(1)} />
+                </Tabs>
+              </Box>
+              <CustomTabPanel value={value} index={0}>
+                Item One
+              </CustomTabPanel>
+              <CustomTabPanel value={value} index={1}>
+                Item Two
+              </CustomTabPanel>
+            </Box>
           </div>
         </div>
       </div>
