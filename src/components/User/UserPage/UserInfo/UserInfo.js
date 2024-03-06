@@ -1,6 +1,5 @@
 import { memo, useEffect, useState, React } from "react";
 import "../../UserPage/UserPage.scss";
-// import { toast } from "react-toastify";
 import { Button, Form, Input } from "antd";
 import { MdPhotoCamera } from "react-icons/md";
 import { useRef } from "react";
@@ -15,7 +14,7 @@ const UserInfo = () => {
   const inputRef = useRef(null);
   const [image, setImage] = useState("");
   const [imageUpdate, setImageUpdate] = useState([]);
-  const [formData, setFormData] = useState(new FormData());
+  console.log(imageUpdate);
   const [urlImage, setUrlImage] = useState("");
   const toDataURL = (url) =>
     fetch(urlImage)
@@ -52,13 +51,6 @@ const UserInfo = () => {
   const handleImageClick = () => {
     inputRef.current.click();
   };
-  useEffect(() => {
-    if (imageUpdate !== null) {
-      const updatedFormData = new FormData();
-      updatedFormData.append("avatar", imageUpdate);
-      setFormData(updatedFormData);
-    }
-  }, [imageUpdate]);
   const handleImageChange = (event) => {
     setImageUpdate(event.target.files[0]);
     setImage(URL.createObjectURL(event.target.files[0]));
@@ -172,15 +164,6 @@ const UserInfo = () => {
           {edit ? (
             <Form
               name="basic"
-              // labelCol={{
-              //   span: 8,
-              // }}
-              // wrapperCol={{
-              //   span: 16,
-              // }}
-              // style={{
-              //   maxWidth: 600,
-              // }}
               initialValues={{
                 remember: true,
               }}
@@ -194,35 +177,35 @@ const UserInfo = () => {
                 name="firstname"
                 initialValue={`${user?.firstname}`}
               >
-                <Input />
+                <Input size="large" />
               </Form.Item>
               <Form.Item
                 label="Tên"
                 name="lastname"
                 initialValue={`${user?.lastname}`}
               >
-                <Input />
+                <Input size="large" />
               </Form.Item>
               <Form.Item
                 label="Kỹ năng/Nghề nghiệp"
                 name="skill"
                 initialValue={`${user?.skill || ""}`}
               >
-                <Input />
+                <Input size="large" />
               </Form.Item>
               <Form.Item
                 label="Số điện thoại"
                 name="mobile"
                 initialValue={`${user?.mobile || ""}`}
               >
-                <Input />
+                <Input size="large" />
               </Form.Item>
               <Form.Item
                 label="Địa chỉ"
                 name="address"
                 initialValue={`${user?.address || ""}`}
               >
-                <Input />
+                <Input size="large" />
               </Form.Item>
               <div className="user__button">
                 <Link

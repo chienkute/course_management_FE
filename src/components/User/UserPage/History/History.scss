@@ -1,0 +1,7 @@
+@use "sass:map";
+@import "style/pages/theme";
+.history {
+  &__col {
+    width: 500px;
+  }
+}

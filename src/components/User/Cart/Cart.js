@@ -110,9 +110,15 @@ const Cart = () => {
                   </tr>
                 </tbody>
               </table>
-              <div className="cart__totals_checkout">
-                <Link>Tiến hành thanh toán</Link>
-              </div>
+              {cart && cart.length > 0 ? (
+                <div className="cart__totals_checkout">
+                  <Link to={"/checkout"}>Tiến hành thanh toán</Link>
+                </div>
+              ) : (
+                <div className="cart__totals_checkout checkout__button">
+                  <Link>Tiến hành thanh toán</Link>
+                </div>
+              )}
             </div>
           </div>
         </div>

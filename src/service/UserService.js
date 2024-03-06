@@ -51,6 +51,21 @@ const updateCart = (cid, quantity) => {
 const removeCourse = (cid, quantity) => {
   return instance.put("/user/remove", { cid, quantity });
 };
+const createOrder = (data) => {
+  return instance.post("/order/", data);
+};
+const getCartUser = (cid) => {
+  return instance.get(`/user/cart/${cid}`);
+};
+const getCourseUser = (cid) => {
+  return instance.get(`/user/course/${cid}`);
+};
+const getUserOrder = () => {
+  return instance.get("/order/?limit=5");
+};
+const getCourseByUser = () => {
+  return instance.get("/oder/usercourse");
+};
 export {
   register,
   login,
@@ -62,4 +77,9 @@ export {
   updateInformation,
   updateCart,
   removeCourse,
+  createOrder,
+  getCartUser,
+  getCourseUser,
+  getUserOrder,
+  getCourseByUser,
 };

@@ -2,12 +2,12 @@ import { memo } from "react";
 import "./HeaderPage.scss";
 import React from "react";
 import { Button, Layout } from "antd";
-import logo from "../../../assets/logo.png";
 import { FaCartShopping } from "react-icons/fa6";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import { Avatar, Badge, Space } from "antd";
 import { useDispatch, useSelector } from "react-redux";
 import { updateSearch } from "redux/userSlice";
+import header from "../../../assets/logo5.png";
 const { Header } = Layout;
 const HeaderPage = () => {
   const state = useSelector((state) => state.changeTheme.count);
@@ -24,7 +24,10 @@ const HeaderPage = () => {
       <Layout>
         <Header className="header_layout">
           <Link className="header_logo" to={"/"}>
-            <img src={logo} alt="" className="header_logo_image_icon" />
+            <div className="header_logo_image">
+              <img src={header} alt="" className="header_logo_image_icon" />
+            </div>
+            <p>KHÓA HỌC WORDPRESS</p>
           </Link>
           <div className="header_item">
             <div className="header_menu">

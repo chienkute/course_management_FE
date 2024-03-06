@@ -26,9 +26,23 @@
   }
   &_logo {
     transform: translateX(50px);
-    img {
-      width: 162px;
-      height: 55px;
+    display: flex;
+    &_image {
+      border-radius: 50%;
+      width: 60px;
+      height: 60px;
+      img {
+        width: 50px;
+        height: 50px;
+        background: #fff;
+      }
+    }
+    p {
+      width: 100px;
+      flex-wrap: wrap;
+      color: $black;
+      font-weight: bold;
+      font-size: 18px;
     }
   }
   &_layout {

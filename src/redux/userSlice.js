@@ -15,7 +15,11 @@ export const userSlice = createSlice({
     removeCount: (state, action) => {
       state.count = state.count - action.payload.count;
     },
+    setCount: (state, action) => {
+      state.count = action.payload.count;
+    },
   },
 });
-export const { updateSearch, updateCount, removeCount } = userSlice.actions;
+export const { updateSearch, updateCount, removeCount, setCount } =
+  userSlice.actions;
 export default userSlice.reducer;

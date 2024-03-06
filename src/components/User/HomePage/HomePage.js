@@ -2,10 +2,10 @@ import { memo, useEffect, useState } from "react";
 import "./HomePage.scss";
 import "../../../components/User/HomePage/styles.css";
 import React from "react";
-import banner from "../../../assets/banner-inside.png";
+import banner from "../../../assets/profile.png";
 import achievement from "../../../assets/achievement-img.png";
 import icon from "../../../assets/ic-achievement.svg";
-import feedback from "../../../assets/cam-nhan-hoc-vien.png";
+import feedback from "../../../assets/windows.svg";
 import { Link, useNavigate } from "react-router-dom";
 import Course from "../../theme/Course/Course";
 import { getAllCourse } from "service/UserService";
@@ -41,7 +41,7 @@ const HomePage = () => {
               <div class="col-lg-6 home__banner_content">
                 <div class="mb-5 mb-lg-0 text-center text-lg-start">
                   <h1 class="display-1 mb-3 home__banner_title">
-                    Khóa học WordPress thực chiến cùng với Huy Kira.
+                    Khóa học WordPress thực chiến.
                   </h1>
                   <p class="mb-5 home__banner_text">
                     Học thiết kế & lập trình WordPress từ cơ bản đến nâng cao,

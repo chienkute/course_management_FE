@@ -8,7 +8,12 @@ import Tab from "@mui/material/Tab";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import PropTypes from "prop-types";
-import { getCourseById, updateCart } from "service/UserService";
+import {
+  getCartUser,
+  getCourseById,
+  getCourseUser,
+  updateCart,
+} from "service/UserService";
 import { updateCount } from "redux/userSlice";
 import { useDispatch } from "react-redux";
 function CustomTabPanel(props) {
@@ -56,7 +61,9 @@ const CourseDetail = () => {
   const navigate = useNavigate();
   const { id } = useParams();
   const [course, setCourse] = useState("");
-  console.log(course);
+  const [checkCart, setCheckCart] = useState("");
+  const [checkAccept, setCheckAccept] = useState("");
+  console.log(checkCart);
   const getCourseInfo = async () => {
     let res = await getCourseById(id);
     if (res) {
@@ -77,8 +84,23 @@ const CourseDetail = () => {
     }).format(price);
     return price;
   };
+  const getStatusCart = async () => {
+    let res = await getCartUser(id);
+    if (res) {
+      setCheckCart(res?.success);
+      console.log(res);
+    }
+  };
+  const getStatusCourse = async () => {
+    let res = await getCourseUser(id);
+    if (res) {
+      setCheckAccept(res?.accept);
+    }
+  };
   useEffect(() => {
     getCourseInfo();
+    getStatusCart();
+    getStatusCourse();
   }, []);
   return (
     <div className="detail">
@@ -126,7 +148,7 @@ const CourseDetail = () => {
                   <div className="course__line">
                     <span>Giảng viên:</span>
                     <strong>
-                      <Link>Huy Kira</Link>
+                      <Link>Chiến Kute</Link>
                     </strong>
                   </div>
                 </div>
@@ -135,21 +157,37 @@ const CourseDetail = () => {
                   <div className="detail__card_price">
                     <span>{formated(course?.price)}&nbsp;</span>
                   </div>
-                  <button
-                    onClick={() => {
-                      addtoCart();
-                      addCount();
-                    }}
-                  >
-                    <div>
-                      <TbShoppingCartPlus></TbShoppingCartPlus>
-                    </div>
-                    <span>Thêm vào giỏ hàng</span>
-                    {/* <div>
-                      <TbShoppingCart></TbShoppingCart>
-                    </div>
-                    <span>Xem giỏ hàng</span> */}
-                  </button>
+                  {checkCart === true ? (
+                    <button
+                      onClick={() => {
+                        navigate("/cart");
+                      }}
+                    >
+                      <div>
+                        <TbShoppingCart></TbShoppingCart>
+                      </div>
+                      <span>Xem giỏ hàng</span>
+                    </button>
+                  ) : checkAccept === true ? (
+                    <button onClick={() => {}}>
+                      <div>
+                        <TbShoppingCart></TbShoppingCart>
+                      </div>
+                      <span>Xem khóa học</span>
+                    </button>
+                  ) : (
+                    <button
+                      onClick={() => {
+                        addtoCart();
+                        addCount();
+                      }}
+                    >
+                      <div>
+                        <TbShoppingCartPlus></TbShoppingCartPlus>
+                      </div>
+                      <span>Thêm vào giỏ hàng</span>
+                    </button>
+                  )}
                 </div>
               </div>
             </div>

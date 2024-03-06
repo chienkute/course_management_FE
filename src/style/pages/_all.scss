@@ -38,3 +38,8 @@ body {
 .sideBarActive {
   color: #038c4b !important;
 }
+.ant-pagination-item {
+  a {
+    display: inline !important;
+  }
+}
