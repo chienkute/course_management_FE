@@ -1,0 +1,23 @@
+@use "sass:map";
+@import "style/pages/theme";
+.user {
+  &__container {
+    &_search {
+      display: flex;
+      justify-content: space-between;
+    }
+    &_form {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      margin-top: 20px;
+      form {
+        display: inline-block;
+        max-width: 480px;
+        width: 100%;
+        margin-left: 150px;
+      }
+    }
+  }
+}

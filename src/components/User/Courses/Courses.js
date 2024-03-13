@@ -6,7 +6,6 @@ import Course from "components/theme/Course/Course";
 import { getCategories, searchCourse } from "service/UserService";
 import { useDebounce } from "@uidotdev/usehooks";
 import { useSelector } from "react-redux";
-
 const Courses = () => {
   const state = useSelector((state) => state.changeTheme.search);
   const [query, setQuery] = useState(state || "");

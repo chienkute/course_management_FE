@@ -9,11 +9,17 @@ const Login = () => {
   const navigate = useNavigate();
   const onFinish = async (values) => {
     let res = await login(values.username, values.password);
-    if (res?.sucess === true) {
+    console.log(res);
+    if (res?.sucess === true && res?.role === "user") {
       localStorage.setItem("token", res?.accessToken);
       localStorage.setItem("user", JSON.stringify(res?.user));
       toast.success("Đăng nhập thành công");
       navigate("/");
+    } else if (res?.role === "admin") {
+      localStorage.setItem("token", res?.accessToken);
+      localStorage.setItem("admin", JSON.stringify(res?.user));
+      navigate("/admin/user");
+      toast.success("Đăng nhập thành công");
     } else {
       toast.error("Đăng nhập thất bại");
     }

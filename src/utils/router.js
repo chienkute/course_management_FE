@@ -8,17 +8,26 @@ import Cart from "components/User/Cart/Cart";
 import Checkout from "components/User/Checkout/Checkout";
 import UserCourse from "components/User/UserPage/UserCourse/UserCourse";
 import History from "components/User/UserPage/History/History";
+import LessonHome from "components/User/Lessons/LessonHome/LessonHome";
+import ManageUser from "components/Admin/ManageUser/ManageUser";
+import ManageCategory from "components/Admin/ManageCategory/ManageCategory";
 const publicRoutes = [
   { path: "/register", component: Register, layout: null },
   { path: "/login", component: Login, layout: null },
+  { path: "/lesson/:id", component: LessonHome },
+  { path: "/lesson/:id/:slug", component: LessonHome },
   { path: "/course", component: Courses },
   { path: "/detail/:id", component: CourseDetail },
   { path: "/blog", component: HomePage },
   { path: "/user/information/", component: UserInfo },
-  { path: "/user/course/", component: UserCourse, layout: null },
+  { path: "/user/course/", component: UserCourse },
   { path: "/user/history/", component: History },
   { path: "/cart", component: Cart },
   { path: "/checkout", component: Checkout },
   { path: "/", component: HomePage },
 ];
-export { publicRoutes };
+const adminRoutes = [
+  { path: "/admin/user", component: ManageUser },
+  { path: "/admin/category", component: ManageCategory },
+];
+export { publicRoutes, adminRoutes };

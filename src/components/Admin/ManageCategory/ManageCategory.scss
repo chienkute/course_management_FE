@@ -1,0 +1,21 @@
+@use "sass:map";
+@import "style/pages/theme";
+.avatarBefore {
+  width: 130px;
+  height: 130px;
+  border-radius: 50%;
+  transform: translateX(-20px);
+}
+.avatarAfter {
+  width: 130px;
+  height: 130px;
+  border-radius: 50%;
+  transform: translateX(-20px);
+  margin-top: 6px;
+}
+.form__avatar {
+  transform: translateX(20px);
+}
+.validate {
+  color: red;
+}

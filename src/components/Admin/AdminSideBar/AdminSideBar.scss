@@ -1,0 +1,35 @@
+@use "sass:map";
+@import "style/pages/theme";
+.admin {
+  width: 350px;
+  padding: 16px;
+  background-color: #fff;
+  border-radius: 6px;
+  &__container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    background: #fff;
+    &_line {
+      margin-top: 50px;
+      height: 1px;
+      width: 90%;
+      background-color: #cdcfd5;
+    }
+    &_logo {
+      display: inline-block;
+      img {
+        width: 60px;
+        height: 60px;
+      }
+    }
+    &_sidebar {
+      margin-top: -20px;
+    }
+  }
+}
+.ant-layout-sider-children {
+  transform: translateX(-50px);
+  width: 300px !important;
+}

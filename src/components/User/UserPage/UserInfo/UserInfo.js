@@ -112,7 +112,7 @@ const UserInfo = () => {
                 <img
                   src={image}
                   alt="BlogImg"
-                  className="avatarAfter"
+                  className="avatarAfters"
                   style={{
                     transform: "translateX(15px)",
                   }}
@@ -121,10 +121,10 @@ const UserInfo = () => {
                 <img
                   src={user?.avatar}
                   alt="BlogImg"
-                  className="avatarBefore"
+                  className="avatarBefores"
                 ></img>
               ) : (
-                <img src={avatar} alt="BlogImg" className="avatarBefore"></img>
+                <img src={avatar} alt="BlogImg" className="avatarBefores"></img>
               )}
               <input
                 type="file"

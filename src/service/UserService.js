@@ -12,7 +12,7 @@ const login = (username, password) => {
   return instance.post("/user/login", { username, password });
 };
 const getCategories = () => {
-  return instance.get("/coursecategory/");
+  return instance.get("/coursecategory/?limit=6");
 };
 const getAllCourse = () => {
   return instance.get("/course/?limit=100");
@@ -64,7 +64,10 @@ const getUserOrder = () => {
   return instance.get("/order/?limit=5");
 };
 const getCourseByUser = () => {
-  return instance.get("/oder/usercourse");
+  return instance.get("/order/usercourse");
+};
+const rating = (star, cid, comment, updatedAt) => {
+  return instance.put("/course/ratings", { star, cid, comment, updatedAt });
 };
 export {
   register,
@@ -82,4 +85,5 @@ export {
   getCourseUser,
   getUserOrder,
   getCourseByUser,
+  rating,
 };

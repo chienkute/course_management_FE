@@ -1,10 +1,10 @@
 import { memo, useEffect, useState } from "react";
 import "./History.scss";
 import UserPage from "../UserPage";
-import { Space, Table, Tag } from "antd";
+import { Table } from "antd";
 import { getUserOrder } from "service/UserService";
 import moment from "moment";
-const { Column, ColumnGroup } = Table;
+const { Column } = Table;
 const History = () => {
   const [orders, setOrders] = useState([]);
   const formated = (price) => {
@@ -27,12 +27,6 @@ const History = () => {
       .join(", ");
     return {
       key: `${index}`,
-      // {item?.courses?.map((item,index)=>{
-      //   return {}
-      // })},
-      // name: {item?.courses?.map((item,index)=>{
-      //   return
-      // })},
       name: coursesNames,
       date: `${moment(item?.createdAt).format("DD/MM/YYYY")}`,
       price: `${formated(item?.total)}`,

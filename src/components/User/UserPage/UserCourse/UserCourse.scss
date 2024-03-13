@@ -1,2 +1,78 @@
 @use "sass:map";
 @import "style/pages/theme";
+.ucourse {
+  margin-bottom: 60px;
+  width: 80%;
+  &__title {
+    text-transform: capitalize;
+    color: $black;
+    font-weight: 500;
+    line-height: 1.6;
+    font-size: 1.25rem;
+    margin-bottom: 16px;
+  }
+  &__course {
+    grid-template-columns: repeat(3, 1fr);
+    display: grid;
+    grid-gap: 32px;
+    &_content {
+      border: 1px solid #cdcfd5;
+      height: 100%;
+      background-color: #fff;
+      position: relative;
+      border-radius: 6px;
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+      word-wrap: break-word;
+    }
+    &_thumbnail {
+      position: relative;
+      a {
+        img {
+          max-width: 100%;
+          height: auto;
+          object-fit: cover;
+          vertical-align: middle;
+        }
+      }
+    }
+    &_body {
+      display: flex;
+      flex-direction: column;
+      flex-wrap: wrap;
+      padding: 20px;
+      &_title {
+        a {
+          color: $black;
+          font-weight: 700;
+          font-size: 1rem;
+        }
+      }
+      &_button {
+        margin-top: 30px;
+        &_content {
+          display: block;
+          a {
+            padding: 6px 12px;
+            border-color: #f79922;
+            border: 1px solid #f79922;
+            display: flex;
+            justify-content: center;
+            width: 100%;
+            font-weight: 400;
+            border-radius: 6px;
+            cursor: pointer;
+            color: #f79922;
+            background-color: rgba(0, 0, 0, 0);
+            font-size: 16px;
+            &:hover {
+              color: white;
+              background-color: green;
+            }
+          }
+        }
+      }
+    }
+  }
+}

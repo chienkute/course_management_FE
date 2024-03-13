@@ -1,0 +1,10 @@
+@use "sass:map";
+@import "style/pages/theme";
+.lesson {
+  &__page {
+    margin-top: 101px;
+    display: flex;
+    position: relative;
+    width: 100%;
+  }
+}

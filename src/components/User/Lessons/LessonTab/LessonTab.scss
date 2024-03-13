@@ -1,0 +1,62 @@
+@use "sass:map";
+@import "style/pages/theme";
+.lesson {
+  &__sidebar {
+    -webkit-box-ordinal-group: 3;
+    order: 2;
+    flex: 0 0 400px;
+    width: 400px;
+    background-color: #eff1f6;
+    border-right: 1px solid #e0e2ea;
+  }
+  &__title {
+    display: flex;
+    align-items: center;
+    padding: 8px 16px;
+    height: 60px;
+    background-color: #fff;
+    border-bottom: 1px solid #e0e2ea;
+    justify-content: space-between;
+    color: $black;
+    line-height: 1.6;
+    font-weight: 500;
+  }
+  &__content {
+    &_body {
+      background-color: #fff;
+      padding-top: 8px;
+      padding-bottom: 8px;
+      overflow: hidden;
+      &_item {
+        position: relative;
+        a {
+          display: flex;
+          flex-wrap: nowrap;
+          width: 100%;
+          padding: 10px 16px;
+          margin-right: 32px;
+          svg {
+            color: rgba(33, 37, 41, 0.3);
+            transition: 300ms ease-in;
+            font-size: 18px;
+            margin-right: 8px;
+            margin-top: 2px;
+          }
+          span {
+            color: #41454f;
+            font-size: 16px;
+            &:hover {
+              color: #f79922;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+.ant-collapse-content-box {
+  padding: 0px 0px !important;
+}
+.menuActive {
+  background-color: #eff1f6;
+}
