@@ -29,6 +29,7 @@
       overflow: hidden;
       &_item {
         position: relative;
+        display: flex;
         a {
           display: flex;
           flex-wrap: nowrap;
@@ -59,4 +60,10 @@
 }
 .menuActive {
   background-color: #eff1f6;
+}
+.completed {
+  svg {
+    font-size: 30px;
+    transform: translateX(-20px);
+  }
 }

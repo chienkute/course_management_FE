@@ -42,11 +42,9 @@ const AdminSideBar = () => {
     getItem("Thống kê", "1", "dashboard"),
     getItem("Quản lý người dùng", "2", "user"),
     getItem("Quản lý chủ đề khóa học", "3", "category"),
-    getsItem("Quản lý khóa học", "sub1", [
-      getItem("Thêm khóa học", "4", "course"),
-      getItem("Quản lý các chương của khóa", "5", "chapter"),
-      getItem("Quản lý video của chương học", "6", "video"),
-    ]),
+    getItem("Quản lý khóa học", "4", "course"),
+    getItem("Quản lý các chương của khóa", "5", "chapter"),
+    getItem("Quản lý blog", "6", "blog"),
     Logout("Đăng xuất", "7", "login"),
   ];
   return (

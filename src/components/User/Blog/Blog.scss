@@ -1,0 +1,76 @@
+@use "sass:map";
+@import "style/pages/theme";
+.blog {
+  max-width: 1800px;
+  margin: 150px 200px;
+  background-color: $mainpage;
+}
+.blist {
+  &__card {
+    border-radius: 8px;
+    box-shadow: 0px 3px 20px rgba(0, 0, 0, 0.05);
+    padding: 20px;
+    margin-bottom: 1.5rem;
+    border: 0;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+    background-color: #fff;
+  }
+  &__title {
+    font-size: 18px;
+    padding-bottom: 8px;
+    margin: 0 0 20px 0;
+    text-transform: uppercase;
+    font-weight: 700;
+    &::after {
+      content: "";
+      background-color: #f79922;
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 40px;
+      height: 3px;
+    }
+  }
+  &__list {
+    margin-top: 20px;
+    overflow: hidden;
+    background-color: #fff;
+    border-bottom: 1px solid #eee;
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+  }
+  &__thumb {
+    width: 250px;
+    img {
+      aspect-ratio: 3/2;
+      height: 100%;
+      width: 100%;
+    }
+  }
+  &__content {
+    width: calc(100% - 250px);
+    h3 {
+      font-size: 16px;
+      line-height: 1.5;
+      a {
+        color: inherit;
+      }
+    }
+  }
+  &__date {
+    color: #7d7d7d;
+    font-size: 14px;
+    gap: 8px;
+  }
+  &__description {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+  }
+}

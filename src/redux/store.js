@@ -1,5 +1,6 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import userReducer from "./userSlice";
+import completedSlice from "./completeSlice";
 import storage from "redux-persist/lib/storage";
 import {
   persistStore,
@@ -18,6 +19,7 @@ const persistConfig = {
 };
 const rootReducer = combineReducers({
   changeTheme: userReducer,
+  videoDone: completedSlice,
 });
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 const store = configureStore({

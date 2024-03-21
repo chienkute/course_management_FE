@@ -69,7 +69,18 @@ const getCourseByUser = () => {
 const rating = (star, cid, comment, updatedAt) => {
   return instance.put("/course/ratings", { star, cid, comment, updatedAt });
 };
+const coutVideos = (cid) => {
+  return instance.post(`/course/videos/${cid}`);
+};
+const getBlogByUser = (search) => {
+  return instance.get(`/blog/?limit=100&q=${search}`);
+};
+const getDetailBlog = (bid) => {
+  return instance.get(`/blog/${bid}`);
+};
 export {
+  getBlogByUser,
+  getDetailBlog,
   register,
   login,
   getCategories,
@@ -86,4 +97,5 @@ export {
   getUserOrder,
   getCourseByUser,
   rating,
+  coutVideos,
 };

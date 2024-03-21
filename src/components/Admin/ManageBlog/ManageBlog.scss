@@ -1,0 +1,19 @@
+@use "sass:map";
+@import "style/pages/theme";
+.blog {
+  &__container {
+    &_form {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      margin-top: 20px;
+      form {
+        display: inline-block;
+        max-width: 1000px;
+        width: 100%;
+        margin-left: 320px;
+      }
+    }
+  }
+}

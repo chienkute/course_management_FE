@@ -4,14 +4,14 @@ import { Button, Modal, Space, Table } from "antd";
 import { useDebounce } from "@uidotdev/usehooks";
 import { Input } from "antd";
 import { Link } from "react-router-dom";
-import { deleteCourse, getCourseByAdmin } from "service/AdminService";
+import { getAllChapter } from "service/AdminService";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
-import AddCourse from "./AddCourse";
-import UpdateCourse from "./UpdateCourse";
+import AddCourse from "./AddChapter";
+import UpdateCourse from "./UpdateChapter";
 const { Search } = Input;
 const { Column } = Table;
-const ManageCourse = () => {
+const ManageChapter = () => {
   const state = useSelector((state) => state.changeTheme.updated);
   const [categories, setCategories] = useState([]);
   const [search, setSearch] = useState("");
@@ -29,7 +29,7 @@ const ManageCourse = () => {
   const [handleOpen, setHandleOpen] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const getData = async () => {
-    let res = await getCourseByAdmin(debouncedSearchTerm);
+    let res = await getAllChapter(debouncedSearchTerm);
     if (res) {
       setCategories(res?.data);
     }
@@ -39,21 +39,14 @@ const ManageCourse = () => {
     deleteCategories(id);
   };
   const deleteCategories = async (id) => {
-    let res = await deleteCourse(id);
-    if (res) {
-      toast.success("Xóa thành công");
-      getData();
-    }
+    // let res = await deleteCourse(id);
+    // if (res) {
+    //   toast.success("Xóa thành công");
+    //   getData();
+    // }
   };
   const handleCancel = () => {
     setIsModalOpen(false);
-  };
-  const formated = (price) => {
-    price = new Intl.NumberFormat("vi-VN", {
-      style: "currency",
-      currency: "VND",
-    }).format(price);
-    return price;
   };
   useEffect(() => {
     getData();
@@ -62,26 +55,7 @@ const ManageCourse = () => {
     return {
       key: `${index + 1}`,
       stt: `${index + 1}`,
-      title: (
-        <Link to={`/admin/course/${item?._id}`} style={{ color: "black" }}>
-          {item?.title}
-        </Link>
-      ),
-      price: formated(`${item?.price}`),
-      icon: (
-        <div>
-          <img
-            src={`${item?.image}`}
-            alt=""
-            style={{
-              width: "40px",
-              height: "40px",
-              borderRadius: "50%",
-            }}
-          />
-        </div>
-      ),
-      category: `${item?.category?.title}`,
+      title: `${item?.title}`,
       action: (
         <div key={index}>
           <Space size="middle">
@@ -143,9 +117,6 @@ const ManageCourse = () => {
         <Table dataSource={data}>
           <Column title="STT" dataIndex="stt" key="stt" />
           <Column title="Tiêu đề" dataIndex="title" key="title" />
-          <Column title="Giá" dataIndex="price" key="price" />
-          <Column title="Ảnh" dataIndex="icon" key="icon" />
-          <Column title="Chủ đề" dataIndex="category" key="category" />
           <Column title="Action" dataIndex="action" key="action" />
         </Table>
       </div>
@@ -174,4 +145,4 @@ const ManageCourse = () => {
     </div>
   );
 };
-export default memo(ManageCourse);
+export default memo(ManageChapter);

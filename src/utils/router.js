@@ -11,6 +11,13 @@ import History from "components/User/UserPage/History/History";
 import LessonHome from "components/User/Lessons/LessonHome/LessonHome";
 import ManageUser from "components/Admin/ManageUser/ManageUser";
 import ManageCategory from "components/Admin/ManageCategory/ManageCategory";
+import ManageCourse from "components/Admin/ManageCourse/ManageCourse";
+import ManageBlog from "components/Admin/ManageBlog/ManageBlog";
+import Blog from "components/User/Blog/Blog";
+import BlogDetail from "components/User/Blog/BlogDetail";
+import Dashboard from "components/Admin/Dashboard/Dashboard";
+import ManageChapterCourse from "components/Admin/ManageChapterCourse/ManageChapterCourse";
+import ManageChapter from "components/Admin/ManageChapter/ManageChapter";
 const publicRoutes = [
   { path: "/register", component: Register, layout: null },
   { path: "/login", component: Login, layout: null },
@@ -18,7 +25,8 @@ const publicRoutes = [
   { path: "/lesson/:id/:slug", component: LessonHome },
   { path: "/course", component: Courses },
   { path: "/detail/:id", component: CourseDetail },
-  { path: "/blog", component: HomePage },
+  { path: "/blog", component: Blog },
+  { path: "/blog/:id", component: BlogDetail },
   { path: "/user/information/", component: UserInfo },
   { path: "/user/course/", component: UserCourse },
   { path: "/user/history/", component: History },
@@ -27,7 +35,13 @@ const publicRoutes = [
   { path: "/", component: HomePage },
 ];
 const adminRoutes = [
+  { path: "/admin/dashboard", component: Dashboard },
   { path: "/admin/user", component: ManageUser },
   { path: "/admin/category", component: ManageCategory },
+  { path: "/admin/course", component: ManageCourse },
+  { path: "/admin/chapter", component: ManageChapter },
+  { path: "/admin/chapter/:id", component: ManageCourse },
+  { path: "/admin/course/:id", component: ManageChapterCourse },
+  { path: "/admin/blog", component: ManageBlog },
 ];
 export { publicRoutes, adminRoutes };

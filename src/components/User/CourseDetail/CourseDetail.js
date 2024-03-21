@@ -8,7 +8,6 @@ import Tab from "@mui/material/Tab";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import PropTypes from "prop-types";
-import moment from "moment";
 import {
   getCartUser,
   getCourseById,
@@ -71,12 +70,15 @@ const CourseDetail = () => {
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
-  // moment(updatedAt)?.fromNow()
   const navigate = useNavigate();
   const { id } = useParams();
   const [course, setCourse] = useState("");
   const [checkCart, setCheckCart] = useState("");
   const [checkAccept, setCheckAccept] = useState("");
+  const [totalLesson, setTotalLesson] = useState(0);
+  const [countCourse, setcountCourse] = useState(0);
+  let percentCourse = Math.round((countCourse / totalLesson) * 100);
+  console.log(totalLesson);
   const percent = (ratingCount) => {
     return Math.round((ratingCount * 100) / ratings.length);
   };
@@ -94,9 +96,15 @@ const CourseDetail = () => {
   const getCourseInfo = async () => {
     let res = await getCourseById(id);
     if (res) {
+      let count = 0;
+      res?.data?.chapters?.forEach((chapter) => {
+        count += chapter?.chapter?.lessons?.length || 0;
+      });
       setCourse(res?.data);
       setRatings(res?.data?.ratings);
       setAverage(res?.data?.rating_count);
+      setcountCourse(res?.data?.completed);
+      setTotalLesson(count);
     }
   };
   const addtoCart = async () => {
@@ -194,6 +202,12 @@ const CourseDetail = () => {
                 <div className="detail__card_body">
                   <div className="detail__card_price">
                     <span>{formated(course?.price)}&nbsp;</span>
+                  </div>
+                  <div className="detail__card_progress">
+                    <span>
+                      Số khóa học đã xem {countCourse} / {totalLesson}
+                    </span>
+                    <Progress percent={percentCourse} showInfo={false} />
                   </div>
                   {checkCart === true ? (
                     <button
