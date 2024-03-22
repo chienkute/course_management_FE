@@ -5,7 +5,7 @@ NProgress.configure({
   trickleSpeed: 200,
 });
 const instance = axios.create({
-  baseURL: "http://localhost:8000/api/",
+  baseURL: "https://api-course-6jbr.onrender.com/api/",
 });
 
 // Add a request interceptor
