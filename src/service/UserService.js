@@ -78,7 +78,11 @@ const getBlogByUser = (search) => {
 const getDetailBlog = (bid) => {
   return instance.get(`/blog/${bid}`);
 };
+const changePassword = (oldPassword, newPassword) => {
+  return instance.post("/user/changepassword", { oldPassword, newPassword });
+};
 export {
+  changePassword,
   getBlogByUser,
   getDetailBlog,
   register,

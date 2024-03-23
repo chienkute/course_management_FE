@@ -38,17 +38,6 @@ const UserPage = () => {
           <div className="OptionName">Các khóa học của bạn</div>
         </NavLink>
         <NavLink
-          to={`/user/wishlist/`}
-          className={({ isActive }) =>
-            isActive ? "sideBarActive Option selected" : "Option selected"
-          }
-        >
-          <div className="OptionIcon">
-            <BsBookmarks></BsBookmarks>
-          </div>
-          <div className="OptionName">Danh sách yêu thích</div>
-        </NavLink>
-        <NavLink
           to={`/user/history/`}
           className={({ isActive }) =>
             isActive ? "sideBarActive Option selected" : "Option selected"

@@ -1,43 +1,42 @@
 import { memo, useEffect, useState } from "react";
-import "./ManageCourse.scss";
+import "./ManageLessons.scss";
 import { Button, Modal, Space, Table } from "antd";
 import { useDebounce } from "@uidotdev/usehooks";
 import { Input } from "antd";
-import { Link } from "react-router-dom";
-import { deleteChapter, getAllChapter } from "service/AdminService";
+import { Link, useParams } from "react-router-dom";
+import { getLessons, deleteLesson } from "service/AdminService";
 import { useSelector } from "react-redux";
+import AddLesson from "./AddLesson";
 import { toast } from "react-toastify";
-import AddCourse from "./AddChapter";
-import UpdateCourse from "./UpdateChapter";
 const { Search } = Input;
 const { Column } = Table;
-const ManageChapter = () => {
+const ManageLessons = () => {
+  const { id } = useParams();
   const state = useSelector((state) => state.changeTheme.updated);
-  const [categories, setCategories] = useState([]);
+  const [lesson, setLessons] = useState([]);
   const [search, setSearch] = useState("");
+  const [title, setTitle] = useState(null);
+  const [video, setVideo] = useState(null);
   const debouncedSearchTerm = useDebounce(search, 500);
-  const [id, setId] = useState("");
-  const [indexKey, setIndexKey] = useState(false);
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
   const [open, setOpen] = useState(false);
-  const [edit, setEdit] = useState(false);
-  const [handleEdit, setHandleEdit] = useState(false);
   const [handleOpen, setHandleOpen] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const getData = async () => {
-    let res = await getAllChapter(debouncedSearchTerm);
+    let res = await getLessons(id);
     if (res) {
-      setCategories(res?.data);
+      res?.data?.map((item, index) => {
+        return setLessons(item?.lessons);
+      });
     }
   };
   const handleOk = () => {
     setIsModalOpen(false);
-    deleteCategories(id);
+    deleteVideos();
   };
-  const deleteCategories = async (id) => {
-    let res = await deleteChapter(id);
+  const deleteVideos = async () => {
+    let res = await deleteLesson(title, video, id);
     if (res) {
+      console.log(res);
       toast.success("Xóa thành công");
       getData();
     }
@@ -48,7 +47,7 @@ const ManageChapter = () => {
   useEffect(() => {
     getData();
   }, [state]);
-  const data = categories?.map((item, index) => {
+  const data = lesson?.map((item, index) => {
     return {
       key: `${index + 1}`,
       stt: `${index + 1}`,
@@ -58,19 +57,8 @@ const ManageChapter = () => {
           <Space size="middle">
             <Link
               onClick={() => {
-                setIndexKey(index);
-                setHandleEdit(!handleEdit);
-                setEdit(true);
                 setTitle(item?.title);
-                setDescription(item?.description);
-                setId(item?._id);
-              }}
-            >
-              Sửa
-            </Link>
-            <Link
-              onClick={() => {
-                setId(item?._id);
+                setVideo(item?.video);
                 setIsModalOpen(true);
               }}
             >
@@ -83,7 +71,7 @@ const ManageChapter = () => {
   });
   useEffect(() => {
     getData();
-  }, [debouncedSearchTerm]);
+  }, []);
   return (
     <div className="user">
       <div className="user__container">
@@ -114,15 +102,7 @@ const ManageChapter = () => {
           <Column title="Action" dataIndex="action" key="action" />
         </Table>
       </div>
-      <AddCourse open={open} handleEdit={handleOpen}></AddCourse>
-      <UpdateCourse
-        open={edit}
-        handleEdit={handleEdit}
-        title={title}
-        description={description}
-        key={indexKey}
-        id={id}
-      ></UpdateCourse>
+      <AddLesson open={open} handleEdit={handleOpen} id={id}></AddLesson>
       <Modal
         title="Xóa chủ đề này"
         open={isModalOpen}
@@ -136,4 +116,4 @@ const ManageChapter = () => {
     </div>
   );
 };
-export default memo(ManageChapter);
+export default memo(ManageLessons);

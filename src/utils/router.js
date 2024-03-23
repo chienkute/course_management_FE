@@ -18,6 +18,8 @@ import BlogDetail from "components/User/Blog/BlogDetail";
 import Dashboard from "components/Admin/Dashboard/Dashboard";
 import ManageChapterCourse from "components/Admin/ManageChapterCourse/ManageChapterCourse";
 import ManageChapter from "components/Admin/ManageChapter/ManageChapter";
+import ChangePassword from "components/User/UserPage/ChangePassword/ChangePassword";
+import ManageLessons from "components/Admin/ManageLessons/ManageLessons";
 const publicRoutes = [
   { path: "/register", component: Register, layout: null },
   { path: "/login", component: Login, layout: null },
@@ -30,6 +32,7 @@ const publicRoutes = [
   { path: "/user/information/", component: UserInfo },
   { path: "/user/course/", component: UserCourse },
   { path: "/user/history/", component: History },
+  { path: "/user/changepassword/", component: ChangePassword },
   { path: "/cart", component: Cart },
   { path: "/checkout", component: Checkout },
   { path: "/", component: HomePage },
@@ -40,7 +43,7 @@ const adminRoutes = [
   { path: "/admin/category", component: ManageCategory },
   { path: "/admin/course", component: ManageCourse },
   { path: "/admin/chapter", component: ManageChapter },
-  { path: "/admin/chapter/:id", component: ManageCourse },
+  { path: "/admin/chapter/:id", component: ManageLessons },
   { path: "/admin/course/:id", component: ManageChapterCourse },
   { path: "/admin/blog", component: ManageBlog },
 ];

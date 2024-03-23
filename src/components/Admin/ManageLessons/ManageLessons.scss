@@ -1,0 +1,17 @@
+@use "sass:map";
+@import "style/pages/theme";
+.video {
+  &__image {
+    transform: translateX(-20px);
+    display: flex;
+    flex-direction: column;
+    p {
+      width: 250px;
+      display: -webkit-box;
+      -webkit-line-clamp: 1; /* số dòng hiển thị */
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+  }
+}

@@ -21,7 +21,6 @@ const ManageChapterCourse = () => {
   const [search, setSearch] = useState("");
   const [idChapter, setIdChaper] = useState("");
   const [idSelect, setIdSelect] = useState("");
-  console.log(idChapter);
   const debouncedSearchTerm = useDebounce(search, 500);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const onChange = (value) => {
@@ -30,17 +29,25 @@ const ManageChapterCourse = () => {
   };
   const updateChapterToCourse = async () => {
     let res = await updateChapterCourse(id, idChapter);
-    if (res) {
+    if (res?.mes) {
+      toast.error("Chương đã tồn tại !!");
+    } else {
       console.log(res);
-      getChapter();
+      getData();
       toast.success("Thêm vào thành công");
     }
   };
+  const filterChapter = chapter.filter((item) =>
+    item?.chapter?.title
+      ?.toLowerCase()
+      .includes(debouncedSearchTerm.toLowerCase())
+  );
   const filterOption = (input, option) =>
     (option?.label ?? "").toLowerCase().includes(input.toLowerCase());
   const getData = async () => {
     let res = await getCourseById(id);
     if (res) {
+      console.log(res);
       setChapter(res?.data?.chapters);
     }
   };
@@ -48,7 +55,8 @@ const ManageChapterCourse = () => {
     let res = await removeChapterCourse(id, idSelect);
     if (res) {
       console.log(res);
-      getChapter();
+      toast.success("Xóa thành công");
+      getData();
     }
   };
   const getChapter = async () => {
@@ -75,17 +83,24 @@ const ManageChapterCourse = () => {
       label: `${item?.title}`,
     };
   });
-  const data = chapter?.map((item, index) => {
+  const data = filterChapter?.map((item, index) => {
     return {
       key: `${index + 1}`,
       stt: `${index + 1}`,
-      title: `${item?.chapter?.title}`,
+      title: (
+        <Link
+          to={`/admin/chapter/${item?.chapter?._id}`}
+          style={{ color: "inherit" }}
+        >
+          {item?.chapter?.title}
+        </Link>
+      ),
       action: (
         <div key={index}>
           <Space size="middle">
             <Link
               onClick={() => {
-                setIdSelect(item?._id);
+                setIdSelect(item?.chapter?._id);
                 setIsModalOpen(true);
               }}
             >
@@ -96,9 +111,6 @@ const ManageChapterCourse = () => {
       ),
     };
   });
-  useEffect(() => {
-    getData();
-  }, [debouncedSearchTerm]);
   return (
     <div className="user">
       <div className="user__container">
@@ -122,7 +134,12 @@ const ManageChapterCourse = () => {
               filterOption={filterOption}
               options={data2}
             />
-            <Button type="primary" onClick={() => {}}>
+            <Button
+              type="primary"
+              onClick={() => {
+                updateChapterToCourse();
+              }}
+            >
               Thêm mới
             </Button>
           </Space>

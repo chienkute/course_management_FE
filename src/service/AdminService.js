@@ -88,10 +88,10 @@ const getAllChapter = (search) => {
   return instance.get(`/chapter/?limit=100&q=${search}`);
 };
 const updateChapterCourse = (cid, chid) => {
-  return instance.put(`/course/chapter/${cid}`, chid);
+  return instance.put(`/course/chapter/${cid}`, { chid });
 };
 const removeChapterCourse = (cid, chid) => {
-  return instance.put(`/course/removechapter/${cid}`, chid);
+  return instance.put(`/course/removechapter/${cid}`, { chid });
 };
 const createChapter = (title, description) => {
   return instance.post("/chapter/", { title, description });
@@ -100,9 +100,27 @@ const updateChapter = (title, description, chid) => {
   return instance.put(`/chapter/${chid}`, { title, description });
 };
 const deleteChapter = (chid) => {
-  return instance.delete(`/chapter.${chid}`);
+  return instance.delete(`/chapter/${chid}`);
+};
+const getLessons = (chid) => {
+  return instance.get(`/chapter/lesson/${chid}`);
+};
+const updateVideo = (title, video, chid) => {
+  const formData = new FormData();
+  formData.append("title", title);
+  formData.append("chid", chid);
+  formData.append("video", video);
+  return instance.put(`/chapter/`, formData);
+};
+const deleteLesson = (title, video, chid) => {
+  return instance.delete(`/chapter/lessons/${chid}`, {
+    data: { title, video },
+  });
 };
 export {
+  deleteLesson,
+  getLessons,
+  updateVideo,
   deleteChapter,
   updateChapter,
   createChapter,

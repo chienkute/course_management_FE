@@ -7,7 +7,6 @@ NProgress.configure({
 const instance = axios.create({
   baseURL: "https://api-course-6jbr.onrender.com/api/",
 });
-
 // Add a request interceptor
 instance.interceptors.request.use(
   function (config) {

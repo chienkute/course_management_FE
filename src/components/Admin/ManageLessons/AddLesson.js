@@ -2,13 +2,13 @@ import { memo } from "react";
 import { Modal, Form, Button, Input } from "antd";
 import { useEffect, useState, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import "./ManageCourse.scss";
+import "./ManageLessons.scss";
 import { toast } from "react-toastify";
 import { setUpdated } from "redux/userSlice";
-import { updateChapter } from "service/AdminService";
-import TextArea from "antd/es/input/TextArea";
-const UpdateChapter = (props) => {
-  const { open, handleEdit, title, description, key, id } = props;
+import { updateVideo } from "service/AdminService";
+const AddLesson = (props) => {
+  const { open, handleEdit, id } = props;
+  const [imageUpdate, setImageUpdate] = useState([]);
   const state = useSelector((state) => state.changeTheme.updated);
   const dispatch = useDispatch();
   const handleUpdate = () => {
@@ -21,6 +21,14 @@ const UpdateChapter = (props) => {
   const handleClick = () => {
     addRef.current.click();
   };
+  const inputRef = useRef(null);
+
+  const handleImageClick = () => {
+    inputRef.current.click();
+  };
+  const handleImageChange = (event) => {
+    setImageUpdate(event.target.files[0]);
+  };
   const addRef = useRef(null);
   const handleOk = () => {
     setIsModalOpen(false);
@@ -31,23 +39,26 @@ const UpdateChapter = (props) => {
   };
   const onFinish = (values) => {
     console.log("Success:", values);
-    EditCategory(values?.title, values?.description);
+    addCategory(values?.title);
   };
-  const EditCategory = async (title, description) => {
-    let res = await updateChapter(title, description, id);
+  const addCategory = async (title) => {
+    let res = await updateVideo(title, imageUpdate, id);
     if (res) {
-      toast.success("Bạn đã sửa thành công");
       handleUpdate();
+      toast.success("Thêm mới thành công !!");
       console.log(res);
+    } else {
+      toast.error("Thêm thất bại");
     }
   };
   useEffect(() => {
     setIsModalOpen(open);
+    setImageUpdate("");
   }, [handleEdit]);
   return (
-    <div key={key}>
+    <div>
       <Modal
-        title="Chỉnh sửa chương khóa học"
+        title="Thêm video khóa học"
         open={isModalOpen}
         onOk={handleOk}
         onCancel={handleCancel}
@@ -55,6 +66,28 @@ const UpdateChapter = (props) => {
         cancelText="Hủy"
       >
         <div className="user__container_form">
+          <div className="form__avatar">
+            <label htmlFor="" style={{ transform: "translateX(80px)" }}>
+              Video <span className="validate">*</span>
+            </label>
+            <div className="video__image">
+              <Button type="primary" onClick={handleImageClick}>
+                Thêm video
+              </Button>
+              {imageUpdate ? (
+                <p>{imageUpdate?.name}</p>
+              ) : (
+                <p>Chấp nhận các loại file mp4</p>
+              )}
+            </div>
+            <input
+              type="file"
+              accept="video/mp4"
+              style={{ display: "none" }}
+              ref={inputRef}
+              onChange={handleImageChange}
+            />
+          </div>
           <Form
             name="basic"
             labelCol={{
@@ -79,35 +112,10 @@ const UpdateChapter = (props) => {
                   message: "Trường này không được để trống!",
                 },
               ]}
-              initialValue={title}
             >
               <Input />
             </Form.Item>
-            <Form.Item
-              label="Mô tả"
-              name="description"
-              rules={[
-                {
-                  required: true,
-                  message: "Trường này không được để trống!",
-                },
-              ]}
-              initialValue={description}
-            >
-              <TextArea rows={4} />
-            </Form.Item>
-            <Form.Item>
-              <Button
-                type="primary"
-                htmlType="submit"
-                style={{
-                  display: "none",
-                }}
-                ref={addRef}
-              >
-                Submit
-              </Button>
-            </Form.Item>
+
             <Form.Item>
               <Button
                 type="primary"
@@ -126,4 +134,4 @@ const UpdateChapter = (props) => {
     </div>
   );
 };
-export default memo(UpdateChapter);
+export default memo(AddLesson);

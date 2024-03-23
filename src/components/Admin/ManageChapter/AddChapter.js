@@ -1,18 +1,13 @@
 import { memo } from "react";
-import { Modal, Form, Button, Input, Select, InputNumber } from "antd";
+import { Modal, Form, Button, Input } from "antd";
 import { useEffect, useState, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import "./ManageCourse.scss";
 import { toast } from "react-toastify";
-import avatar from "../../../assets/avatar.jpg";
 import { setUpdated } from "redux/userSlice";
-import { createCourse } from "service/AdminService";
-import { getCategories } from "service/UserService";
+import { createChapter } from "service/AdminService";
 const { TextArea } = Input;
 const AddChapter = (props) => {
-  const [image, setImage] = useState("");
-  const [category, setCategory] = useState([]);
-  const [imageUpdate, setImageUpdate] = useState([]);
   const { open, handleEdit } = props;
   const state = useSelector((state) => state.changeTheme.updated);
   const dispatch = useDispatch();
@@ -26,14 +21,6 @@ const AddChapter = (props) => {
   const handleClick = () => {
     addRef.current.click();
   };
-  const handleImageClick = () => {
-    inputRef.current.click();
-  };
-  const handleImageChange = (event) => {
-    setImageUpdate(event.target.files[0]);
-    setImage(URL.createObjectURL(event.target.files[0]));
-  };
-  const inputRef = useRef(null);
   const addRef = useRef(null);
   const handleOk = () => {
     setIsModalOpen(false);
@@ -46,8 +33,8 @@ const AddChapter = (props) => {
     console.log("Success:", values);
     addCategory(values?.title, values?.description);
   };
-  const addCategory = async (title, price, category, duration) => {
-    let res = await createCourse(title, price, imageUpdate, duration, category);
+  const addCategory = async (title, description) => {
+    let res = await createChapter(title, description);
     if (res) {
       handleUpdate();
       toast.success("Thêm mới thành công !!");
@@ -56,21 +43,13 @@ const AddChapter = (props) => {
       toast.error("Thêm thất bại");
     }
   };
-  const getAllCategory = async () => {
-    let res = await getCategories();
-    if (res) {
-      setCategory(res?.data);
-    }
-  };
   useEffect(() => {
     setIsModalOpen(open);
-    setImage("");
-    getAllCategory();
   }, [handleEdit]);
   return (
     <div>
       <Modal
-        title="Thêm khóa học"
+        title="Thêm chương mới của khóa"
         open={isModalOpen}
         onOk={handleOk}
         onCancel={handleCancel}
