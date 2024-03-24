@@ -263,7 +263,26 @@ const CourseDetail = () => {
                 </Tabs>
               </Box>
               <CustomTabPanel value={value} index={0}>
-                Item one
+                VỀ KHOÁ HỌC Đây là một khóa học phổ biến và hữu ích cho những
+                người mới bắt đầu hoặc muốn nắm vững cơ bản của WordPress. Dưới
+                đây là một số nội dung cơ bản mà bạn có thể mong đợi trong khóa
+                học này: Giới thiệu về WordPress Cài đặt WordPress: Bạn sẽ học
+                cách cài đặt WordPress trên localhost. Bạn sẽ tìm hiểu cách cấu
+                hình cơ bản và tạo tài khoản quản trị cho trang web của mình.
+                Giao diện và chủ đề: Bạn sẽ khám phá các giao diện và chủ đề của
+                WordPress và học cách tùy chỉnh chúng để tạo ra một trang web có
+                thiết kế đẹp mắt và chuyên nghiệp. Bài viết và trang: Bạn sẽ tìm
+                hiểu cách tạo và quản lý bài viết và trang trên WordPress. Bạn
+                sẽ học cách thêm nội dung, hình ảnh, video và các phần tử khác
+                vào bài viết và trang của mình. Các plugin và tính năng mở rộng:
+                Bạn sẽ được giới thiệu với khái niệm về plugin và tìm hiểu cách
+                sử dụng các plugin để mở rộng tính năng của trang web WordPress.
+                Bạn sẽ học cách cài đặt và quản lý các plugin phổ biến như bình
+                luận, biểu mẫu liên hệ, và tối ưu hóa SEO. Quản lý trang web:
+                Bạn sẽ tìm hiểu về quản lý trang web WordPress, bao gồm cách tạo
+                và quản lý danh mục, thẻ, trình đơn và widget. Bạn cũng sẽ học
+                cách xử lý bình luận, sao lưu và khôi phục dữ liệu, và tối ưu
+                hóa hiệu suất trang web.
               </CustomTabPanel>
               <CustomTabPanel value={value} index={1}>
                 <div className="detail__tab_comment">
